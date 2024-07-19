@@ -8,6 +8,7 @@ const SignOutBtn = () => {
         'use server';
         await signOut();
       }}
+      className="md:block hidden"
     >
       <Button type="submit">Sign Out</Button>
     </form>

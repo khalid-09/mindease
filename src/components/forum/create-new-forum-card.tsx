@@ -18,15 +18,10 @@ const MotionCard = motion(Card);
 const CreateNewForumCard = () => {
   return (
     <MotionCard
-      initial={{ opacity: 0, y: -300 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: 0.2,
-        ease: 'easeInOut',
-        type: 'spring',
-        stiffness: 100,
-      }}
       viewport={{ once: true }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
       className="md:w-[300px] w-full sticky top-4 bg-background bg-opacity-50 backdrop-blur-md h-fit z-20"
     >
       <CardHeader>

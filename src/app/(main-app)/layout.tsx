@@ -1,6 +1,5 @@
 import SignOutBtn from '@/components/auth/sign-out-btn';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import Sidebar from '@/components/sidebar';
 
 const MainAppLayout = ({
   children,
@@ -10,12 +9,10 @@ const MainAppLayout = ({
   return (
     <div className="min-h-svh">
       <div className="flex h-full w-full">
-        <aside className="border-r p-10 space-y-3 md:block hidden text-center">
-          <Button asChild>
-            <Link href="/forum">Forum</Link>
-          </Button>
+        <div className="flex h-svh items-center flex-col">
+          <Sidebar />
           <SignOutBtn />
-        </aside>
+        </div>
         {children}
       </div>
     </div>

@@ -1,7 +1,6 @@
 'use server';
 
 import prisma from '@/db/db';
-import { getUserByEmail } from '@/lib/data/user';
 import { getSessionUser, toSlug } from '@/lib/utils';
 import {
   createForumSchema,

@@ -55,7 +55,7 @@ const ForumPage = async ({ searchParams: { query } }: ForumPageProps) => {
           className="flex gap-3 items-start md:items-center md:justify-between sticky md:top-4 top-52 z-20 bg-background bg-opacity-50 backdrop-blur-md"
         >
           <Select>
-            <SelectTrigger className="md:w-[180px] invisible w-1/2">
+            <SelectTrigger className="md:w-[180px] hidden w-1/2">
               <SelectValue placeholder="All Posts" />
             </SelectTrigger>
             <SelectContent>
@@ -74,7 +74,9 @@ const ForumPage = async ({ searchParams: { query } }: ForumPageProps) => {
         {posts.map(post => (
           <ForumCard key={post.id} post={post} />
         ))}
-        {posts.length === 0 && <p>No posts. Start Writing ✨`</p>}
+        {posts.length === 0 && (
+          <p className="mt-10">No posts. Start Writing ✨`</p>
+        )}
       </div>
     </div>
   );
