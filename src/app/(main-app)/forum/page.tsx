@@ -11,8 +11,28 @@ import {
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import CreateNewForumCard from '@/components/forum/create-new-forum-card';
 import ForumCard from '@/components/forum/forum-card';
+import { getSessionUser } from '@/lib/utils';
+import { redirect } from 'next/navigation';
+import prisma from '@/db/db';
 
-const Page = () => {
+const Page = async () => {
+  const sessionUser = await getSessionUser();
+  if (!sessionUser) redirect('/login');
+
+  const posts = await prisma.posts.findMany({
+    where: {
+      draft: false,
+    },
+    orderBy: {
+      id: 'desc',
+    },
+    include: {
+      author: true,
+    },
+  });
+
+  console.log(posts.length);
+
   return (
     <div className="flex md:flex-row flex-col items-start gap-8 md:gap-12">
       <CreateNewForumCard />
@@ -43,14 +63,9 @@ const Page = () => {
             </span>
           </div>
         </div>
-        <ForumCard />
-        <ForumCard />
-        <ForumCard />
-        <ForumCard />
-        <ForumCard />
-        <ForumCard />
-        <ForumCard />
-        <ForumCard />
+        {posts.map(post => (
+          <ForumCard key={post.id} post={post} />
+        ))}
       </div>
     </div>
   );

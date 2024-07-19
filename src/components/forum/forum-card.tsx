@@ -10,10 +10,23 @@ import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { Posts, User } from '@prisma/client';
+import { convertDate } from '@/lib/utils';
 
 const MotionLink = motion(Link);
 
-const ForumCard = () => {
+interface Author {
+  author: User | null;
+}
+
+interface ForumCardProps {
+  post: Posts & Author;
+}
+
+const ForumCard = ({ post }: ForumCardProps) => {
+  const { tags, title, author, createdAt } = post;
+  const { name, image } = author!;
+
   return (
     <MotionLink
       initial={{ opacity: 0 }}
@@ -28,24 +41,24 @@ const ForumCard = () => {
             <div className="flex items-center gap-2">
               <div className="relative z-10 rounded-full overflow-hidden h-6 w-6">
                 <Image
-                  alt="Shad Mirza"
-                  src="https://github.com/shadcn.png"
+                  alt={name!}
+                  src={image! || 'https://github.com/shadcn.png'}
                   className="absolute object-cover"
                   fill
                   // placeholder="blur"
                   quality={20}
                 />
               </div>
-              <p className="text-sm">Nikul Patel</p>
+              <p className="text-sm">{name}</p>
             </div>
-            <p className="text-sm">2 days ago.</p>
+            <p className="text-sm">{convertDate(createdAt)}</p>
           </div>
         </CardHeader>
         <CardContent>
-          <h3>Forum Title</h3>
+          <h3>{title}</h3>
         </CardContent>
         <CardFooter>
-          <Badge>Anxiety</Badge>
+          <Badge>{tags.at(0)}</Badge>
         </CardFooter>
       </Card>
     </MotionLink>

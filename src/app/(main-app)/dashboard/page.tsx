@@ -1,8 +1,9 @@
 import { getSessionUser } from '@/lib/utils';
+import { redirect } from 'next/navigation';
 
 const Page = async () => {
   const sessionUser = await getSessionUser();
-  console.log(sessionUser);
+  if (!sessionUser) redirect('/login');
 
   return <div>DashboardPage</div>;
 };
