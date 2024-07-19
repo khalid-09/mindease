@@ -83,22 +83,24 @@ model Posts {
 
   author User? @relation(fields: [authorId], references: [id])
 
-  comments Comments[]
+  comments      Comments[]
+  totalComments Int?       @default(0)
 
   @@map("posts")
 }
 
 model Comments {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   content   String
-  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String     @db.ObjectId
-  Post      Posts      @relation(fields: [PostId], references: [id], onDelete: Cascade)
-  PostId    String     @db.ObjectId
-  parent    Comments?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  parentId  String?    @db.ObjectId
-  replies   Comments[] @relation("CommentReplies")
-  createdAt DateTime   @default(now())
+  userId    String   @db.ObjectId
+  postId    String   @db.ObjectId
+  parentId  String?  @db.ObjectId
+  createdAt DateTime @default(now())
+
+  user    User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post    Posts      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  parent  Comments?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies Comments[] @relation("CommentReplies")
 
   @@map("comments")
 }

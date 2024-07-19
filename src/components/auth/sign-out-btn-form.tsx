@@ -1,7 +1,8 @@
 import { signOut } from '@/auth';
 import { Button } from '../ui/button';
+import SignOutBtn from './signout-btn';
 
-const SignOutBtn = () => {
+const SignOutBtnForm = () => {
   return (
     <form
       action={async () => {
@@ -10,9 +11,9 @@ const SignOutBtn = () => {
       }}
       className="md:block hidden"
     >
-      <Button type="submit">Sign Out</Button>
+      <SignOutBtn />
     </form>
   );
 };
 
-export default SignOutBtn;
+export default SignOutBtnForm;

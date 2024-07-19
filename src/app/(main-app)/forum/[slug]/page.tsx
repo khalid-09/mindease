@@ -1,3 +1,4 @@
+import PostComment from '@/components/forum/comments/post-comment';
 import CreateCommentForm from '@/components/forum/create/create-comment-form';
 import BackButton from '@/components/forum/read/back-btn';
 import {
@@ -59,7 +60,7 @@ export const generateMetadata = async ({
 
 const ReadForumPage = async ({ params: { slug } }: ReadForumPageProps) => {
   const post = await getPost(slug);
-  const { author, createdAt, title, description } = post;
+  const { author, createdAt, title, description, id } = post;
 
   const { name, image } = author!;
 
@@ -95,7 +96,12 @@ const ReadForumPage = async ({ params: { slug } }: ReadForumPageProps) => {
               {description && <Markdown>{description}</Markdown>}
             </CardFooter>
           </Card>
-          <CreateCommentForm />
+          <CreateCommentForm postId={id} />
+          <Card>
+            <CardContent>
+              <PostComment postId={id} />
+            </CardContent>
+          </Card>
         </div>
       </div>
     </>

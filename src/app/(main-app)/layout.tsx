@@ -1,4 +1,4 @@
-import SignOutBtn from '@/components/auth/sign-out-btn';
+import SignOutBtnForm from '@/components/auth/sign-out-btn-form';
 import Sidebar from '@/components/sidebar';
 
 const MainAppLayout = ({
@@ -11,7 +11,7 @@ const MainAppLayout = ({
       <div className="flex h-full w-full">
         <div className="flex h-svh items-center flex-col">
           <Sidebar />
-          <SignOutBtn />
+          <SignOutBtnForm />
         </div>
         {children}
       </div>
