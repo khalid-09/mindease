@@ -1,4 +1,3 @@
-import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -8,20 +7,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import CreateNewForumCard from '@/components/forum/create-new-forum-card';
 import ForumCard from '@/components/forum/forum-card';
 import { getSessionUser } from '@/lib/utils';
 import { redirect } from 'next/navigation';
 import prisma from '@/db/db';
+import SearchPost from '@/components/forum/search-post';
 
-const Page = async () => {
-  const sessionUser = await getSessionUser();
-  if (!sessionUser) redirect('/login');
+interface ForumPageProps {
+  searchParams: {
+    query?: string;
+    page?: string;
+  };
+}
 
-  const posts = await prisma.posts.findMany({
+const ForumPage = async ({ searchParams: { query } }: ForumPageProps) => {
+  const sessionUserPromise = await getSessionUser();
+
+  const postsPromise = await prisma.posts.findMany({
     where: {
       draft: false,
+      title: {
+        contains: query,
+        mode: 'insensitive',
+      },
     },
     orderBy: {
       id: 'desc',
@@ -31,7 +40,11 @@ const Page = async () => {
     },
   });
 
-  console.log(posts.length);
+  const [sessionUser, posts] = await Promise.all([
+    sessionUserPromise,
+    postsPromise,
+  ]);
+  if (!sessionUser) redirect('/login');
 
   return (
     <div className="flex md:flex-row flex-col items-start gap-8 md:gap-12">
@@ -42,7 +55,7 @@ const Page = async () => {
           className="flex gap-3 items-start md:items-center md:justify-between sticky md:top-4 top-52 z-20 bg-background bg-opacity-50 backdrop-blur-md"
         >
           <Select>
-            <SelectTrigger className="md:w-[180px] w-1/2">
+            <SelectTrigger className="md:w-[180px] invisible w-1/2">
               <SelectValue placeholder="All Posts" />
             </SelectTrigger>
             <SelectContent>
@@ -56,19 +69,15 @@ const Page = async () => {
               </SelectGroup>
             </SelectContent>
           </Select>
-          <div className="relative">
-            <Input className="md:w-48 w-full px-7" placeholder="Search.." />
-            <span>
-              <MagnifyingGlassIcon className="absolute top-[10px] left-2 " />
-            </span>
-          </div>
+          <SearchPost />
         </div>
         {posts.map(post => (
           <ForumCard key={post.id} post={post} />
         ))}
+        {posts.length === 0 && <p>No posts. Start Writing ✨`</p>}
       </div>
     </div>
   );
 };
 
-export default Page;
+export default ForumPage;

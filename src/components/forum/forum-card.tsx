@@ -24,7 +24,7 @@ interface ForumCardProps {
 }
 
 const ForumCard = ({ post }: ForumCardProps) => {
-  const { tags, title, author, createdAt } = post;
+  const { tags, title, author, createdAt, slug } = post;
   const { name, image } = author!;
 
   return (
@@ -33,7 +33,7 @@ const ForumCard = ({ post }: ForumCardProps) => {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 1.8 }}
-      href="/forum/asdjfa"
+      href={`/forum/${slug}`}
     >
       <Card className="mt-4">
         <CardHeader>
@@ -45,7 +45,6 @@ const ForumCard = ({ post }: ForumCardProps) => {
                   src={image! || 'https://github.com/shadcn.png'}
                   className="absolute object-cover"
                   fill
-                  // placeholder="blur"
                   quality={20}
                 />
               </div>
