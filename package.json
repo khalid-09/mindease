@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "train-model": "set NODE_OPTIONS=--max-old-space-size=8192 && pnpm exec tsx src/utils/train-and-save-model.ts"
+    "train-model": "set NODE_OPTIONS=--max-old-space-size=8192 && pnpm exec tsx src/utils/train-and-save-model.ts",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@ai-sdk/openai": "^0.0.37",
