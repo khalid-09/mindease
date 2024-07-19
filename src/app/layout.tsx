@@ -22,7 +22,7 @@ const RootLayout = ({
         <SmoothScrolling>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
           >
