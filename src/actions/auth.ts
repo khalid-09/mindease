@@ -24,6 +24,12 @@ export const loginUser = async (values: LoginSchema) => {
 
   const { email, password } = validatedFields.data;
 
+  const existingUser = await getUserByEmail(email);
+
+  if (!existingUser) {
+    return { message: "User dosen't exisits", type: 'error' };
+  }
+
   try {
     await signIn('credentials', {
       email,
