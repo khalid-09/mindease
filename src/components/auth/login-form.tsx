@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 
 import {
   Tooltip,
@@ -22,8 +22,12 @@ import {
 import { Input } from '@/components/ui/input';
 import { EyeNoneIcon, EyeOpenIcon } from '@radix-ui/react-icons';
 import { loginSchema, LoginSchema } from '@/lib/validation/auth';
+import { loginUser } from '@/actions/auth';
+import { Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
 
 const LoginForm = () => {
+  const [isPending, startTransition] = useTransition();
   const [showPassword, setShowPassword] = useState(false);
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
@@ -33,20 +37,26 @@ const LoginForm = () => {
     },
   });
 
-  const onSubmit = (data: LoginSchema) => {
-    console.log(data);
-    form.reset();
+  const { reset, handleSubmit, control } = form;
+
+  const onSubmit = async (data: LoginSchema) => {
+    startTransition(() =>
+      loginUser(data).then(data => {
+        if (data.type === 'error') {
+          toast.error(data.message);
+          return;
+        }
+        toast.success(data.message);
+      })
+    );
+    reset();
   };
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        noValidate
-        className="space-y-4"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
         <FormField
-          control={form.control}
+          control={control}
           name="email"
           render={({ field }) => (
             <FormItem>
@@ -59,7 +69,7 @@ const LoginForm = () => {
           )}
         />
         <FormField
-          control={form.control}
+          control={control}
           name="password"
           render={({ field }) => (
             <FormItem>
@@ -98,7 +108,8 @@ const LoginForm = () => {
             </FormItem>
           )}
         />
-        <Button className="w-full" type="submit">
+        <Button className="w-full" disabled={isPending} type="submit">
+          {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           Log In
         </Button>
       </form>

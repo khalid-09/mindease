@@ -1,0 +1,104 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  password      String?
+  image         String?
+  username      String?   @unique
+  bio           String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  totalPosts Int? @default(0)
+  totalReads Int? @default(0)
+
+  accounts Account[]
+  sessions Session[]
+
+  posts    Posts[]
+  comments Comments[]
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("sessions")
+}
+
+model Posts {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  authorId String? @db.ObjectId
+
+  title       String
+  description String   @default("")
+  tags        String[]
+  draft       Boolean  @default(false)
+  slug        String   @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  author User? @relation(fields: [authorId], references: [id])
+
+  comments Comments[]
+
+  @@map("posts")
+}
+
+model Comments {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  content   String
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String     @db.ObjectId
+  Post      Posts      @relation(fields: [PostId], references: [id], onDelete: Cascade)
+  PostId    String     @db.ObjectId
+  parent    Comments?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  parentId  String?    @db.ObjectId
+  replies   Comments[] @relation("CommentReplies")
+  createdAt DateTime   @default(now())
+
+  @@map("comments")
+}

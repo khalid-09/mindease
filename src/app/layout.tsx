@@ -4,22 +4,12 @@ import { GeistMono } from 'geist/font/mono';
 
 import SmoothScrolling from '@/components/smooth-scrolling';
 import { ThemeProvider } from '@/components/theme-provider';
-import localFont from 'next/font/local';
+import { Toaster } from '@/components/ui/sonner';
 
 export const metadata: Metadata = {
   title: 'Mindease',
   description: 'AI powered app for mental health and wellness support.',
 };
-
-const fixelDsiplay = localFont({
-  src: [
-    {
-      path: '../../public/fonts/FixelDisplay/FixelDisplay-Bold.woff2',
-      weight: '800',
-      style: 'normal',
-    },
-  ],
-});
 
 const RootLayout = ({
   children,
@@ -38,6 +28,7 @@ const RootLayout = ({
           >
             <main>{children}</main>
           </ThemeProvider>
+          <Toaster />
         </SmoothScrolling>
       </body>
     </html>

@@ -14,15 +14,19 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { EyeNoneIcon, EyeOpenIcon } from '@radix-ui/react-icons';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { signupUser } from '@/actions/auth';
+import { toast } from 'sonner';
+import { Loader2 } from 'lucide-react';
 
 const SignupForm = () => {
+  const [isPending, startTransition] = useTransition();
   const [showPassword, setShowPassword] = useState(false);
   const form = useForm<SignupSchema>({
     resolver: zodResolver(signupSchema),
@@ -37,7 +41,15 @@ const SignupForm = () => {
   const { reset, control, handleSubmit } = form;
 
   const onSubmit = (data: SignupSchema) => {
-    console.log(data);
+    startTransition(() =>
+      signupUser(data).then(data => {
+        if (data.type === 'error') {
+          toast.error(data.message);
+          return;
+        }
+        toast.success(data.message);
+      })
+    );
     reset();
   };
 
@@ -128,7 +140,8 @@ const SignupForm = () => {
           )}
         />
         <div className="mt-2">
-          <Button className="w-full" type="submit">
+          <Button className="w-full" disabled={isPending} type="submit">
+            {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Sign Up
           </Button>
         </div>
