@@ -8,10 +8,8 @@ import { usePathname } from 'next/navigation';
 const Sidebar = () => {
   const pathname = usePathname();
 
-  console.log(pathname);
-
   return (
-    <aside className="border-r space-y-3 md:block hidden text-center">
+    <aside className="flex flex-col h-full border-r p-4 text-center space-y-3">
       <Link
         href="/dashboard"
         className={cn(

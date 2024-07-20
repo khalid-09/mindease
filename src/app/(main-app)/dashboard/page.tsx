@@ -3,6 +3,8 @@ import { Chart2 } from '@/components/dashboard/chart2';
 import DateCalander from '@/components/dashboard/date-calander';
 import { MoodChart } from '@/components/dashboard/mood-chart';
 import Quote from '@/components/dashboard/quote';
+import Sleep from '@/components/dashboard/sleep';
+import MobileNav from '@/components/mobilenav';
 import {
   Card,
   CardContent,
@@ -19,8 +21,11 @@ const Page = async () => {
 
   return (
     <div className="w-full mb-10">
-      <header className="w-full p-6 md:p-10  border-b border-l rounded-xl ">
+      <header className="w-full p-6 md:p-10  border-b border-l rounded-xl flex items-center justify-between">
         <h2 className="text-2xl font-bold">Hi, {sessionUser.name} 👋</h2>
+        <div className="block md:hidden">
+          <MobileNav />
+        </div>
       </header>
       <section className="space-y-4 flex md:flex-row flex-col gap-4 py-4 px-8">
         <div className="space-y-6 w-full">
@@ -28,9 +33,7 @@ const Page = async () => {
             <p className="text-muted-foreground">Your daily quote ✨</p>
             <Quote />
           </div>
-          {/* <div className="w-full"> */}
           <MoodChart />
-          {/* </div> */}
         </div>
         <div className="flex">
           <Card className="w-full">
@@ -45,8 +48,9 @@ const Page = async () => {
         </div>
       </section>
       <div className="flex md:flex-row flex-col gap-4 px-8">
-        <Chart />
+        <Sleep />
         <Chart2 />
+        <Chart />
       </div>
     </div>
   );

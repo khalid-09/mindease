@@ -42,7 +42,7 @@ const Comment = ({ sessionUser, comment }: CommentProps) => {
       <div className="flex items-center gap-3">
         <div className="relative h-10 w-10 overflow-hidden rounded-full">
           <Image
-            src={user?.image! || '/vercel.svg'}
+            src={user?.image! || 'https://github.com/shadcn.png'}
             alt={'Test'}
             fill
             className="absolute object-cover"

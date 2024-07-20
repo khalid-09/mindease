@@ -28,7 +28,12 @@ const RootLayout = ({
           >
             <main>{children}</main>
           </ThemeProvider>
-          <Toaster />
+          <Toaster
+            position="bottom-center"
+            theme="dark"
+            richColors
+            closeButton
+          />
         </SmoothScrolling>
       </body>
     </html>

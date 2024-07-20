@@ -17,32 +17,33 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
+
 const chartData = [
-  { browser: 'chrome', visitors: 275, fill: 'var(--color-chrome)' },
-  { browser: 'safari', visitors: 200, fill: 'var(--color-safari)' },
-  { browser: 'firefox', visitors: 187, fill: 'var(--color-firefox)' },
-  { browser: 'edge', visitors: 173, fill: 'var(--color-edge)' },
-  { browser: 'other', visitors: 90, fill: 'var(--color-other)' },
+  { category: 'stress', value: 275, fill: 'var(--color-stress)' },
+  { category: 'anxiety', value: 200, fill: 'var(--color-anxiety)' },
+  { category: 'depression', value: 187, fill: 'var(--color-depression)' },
+  { category: 'fatigue', value: 173, fill: 'var(--color-fatigue)' },
+  { category: 'other', value: 90, fill: 'var(--color-other)' },
 ];
 
 const chartConfig = {
-  visitors: {
-    label: 'Visitors',
+  value: {
+    label: 'Value',
   },
-  chrome: {
-    label: 'Chrome',
+  stress: {
+    label: 'Stress',
     color: 'hsl(var(--chart-1))',
   },
-  safari: {
-    label: 'Safari',
+  anxiety: {
+    label: 'Anxiety',
     color: 'hsl(var(--chart-2))',
   },
-  firefox: {
-    label: 'Firefox',
+  depression: {
+    label: 'Depression',
     color: 'hsl(var(--chart-3))',
   },
-  edge: {
-    label: 'Edge',
+  fatigue: {
+    label: 'Fatigue',
     color: 'hsl(var(--chart-4))',
   },
   other: {
@@ -53,9 +54,9 @@ const chartConfig = {
 
 export function Chart2() {
   return (
-    <Card className="flex flex-col">
+    <Card className="flex flex-col w-full">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Radial Chart - Grid</CardTitle>
+        <CardTitle>Radial Chart - Mental Health</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
@@ -66,10 +67,10 @@ export function Chart2() {
           <RadialBarChart data={chartData} innerRadius={30} outerRadius={100}>
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent hideLabel nameKey="browser" />}
+              content={<ChartTooltipContent hideLabel nameKey="category" />}
             />
             <PolarGrid gridType="circle" />
-            <RadialBar dataKey="visitors" />
+            <RadialBar dataKey="value" />
           </RadialBarChart>
         </ChartContainer>
       </CardContent>
@@ -78,7 +79,7 @@ export function Chart2() {
           Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
+          Showing total values for the last 6 months
         </div>
       </CardFooter>
     </Card>

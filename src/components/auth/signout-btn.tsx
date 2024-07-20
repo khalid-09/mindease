@@ -8,7 +8,7 @@ const SignOutBtn = () => {
   const { pending } = useFormStatus();
 
   return (
-    <Button type="submit" disabled={pending}>
+    <Button variant="destructive" type="submit" disabled={pending}>
       {pending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
       Sign Out
     </Button>

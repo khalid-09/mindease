@@ -18,17 +18,38 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { ChartConfig, ChartContainer } from '@/components/ui/chart';
+
 const chartData = [
-  { browser: 'safari', visitors: 200, fill: 'var(--color-safari)' },
+  { category: 'stress', value: 275, fill: 'var(--color-stress)' },
+  { category: 'anxiety', value: 200, fill: 'var(--color-anxiety)' },
+  { category: 'depression', value: 187, fill: 'var(--color-depression)' },
+  { category: 'fatigue', value: 173, fill: 'var(--color-fatigue)' },
+  { category: 'other', value: 90, fill: 'var(--color-other)' },
 ];
 
 const chartConfig = {
-  visitors: {
-    label: 'Visitors',
+  value: {
+    label: 'Value',
   },
-  safari: {
-    label: 'Safari',
+  stress: {
+    label: 'Stress',
+    color: 'hsl(var(--chart-1))',
+  },
+  anxiety: {
+    label: 'Anxiety',
     color: 'hsl(var(--chart-2))',
+  },
+  depression: {
+    label: 'Depression',
+    color: 'hsl(var(--chart-3))',
+  },
+  fatigue: {
+    label: 'Fatigue',
+    color: 'hsl(var(--chart-4))',
+  },
+  other: {
+    label: 'Other',
+    color: 'hsl(var(--chart-5))',
   },
 } satisfies ChartConfig;
 
@@ -36,7 +57,7 @@ export function Chart() {
   return (
     <Card className="flex w-full flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Radial Chart - Text</CardTitle>
+        <CardTitle>Radial Chart - Mental Health</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
@@ -58,7 +79,7 @@ export function Chart() {
               className="first:fill-muted last:fill-background"
               polarRadius={[86, 74]}
             />
-            <RadialBar dataKey="visitors" background cornerRadius={10} />
+            <RadialBar dataKey="value" background cornerRadius={10} />
             <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
               <Label
                 content={({ viewBox }) => {
@@ -75,14 +96,16 @@ export function Chart() {
                           y={viewBox.cy}
                           className="fill-foreground text-4xl font-bold"
                         >
-                          {chartData[0].visitors.toLocaleString()}
+                          {chartData
+                            .reduce((acc, cur) => acc + cur.value, 0)
+                            .toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Visitors
+                          Total Entries
                         </tspan>
                       </text>
                     );
@@ -98,7 +121,7 @@ export function Chart() {
           Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
+          Showing total entries for the last 6 months
         </div>
       </CardFooter>
     </Card>

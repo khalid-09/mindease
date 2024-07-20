@@ -7,14 +7,14 @@ const MainAppLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <div className="min-h-svh">
-      <div className="flex h-full w-full">
-        <div className="flex h-svh items-center flex-col">
-          <Sidebar />
+    <div className="min-h-screen flex">
+      <div className=" flex-col h-screen md:flex hidden">
+        <Sidebar />
+        <div className="mt-auto flex justify-center border-l p-8 ">
           <SignOutBtnForm />
         </div>
-        {children}
       </div>
+      <div className="flex-grow">{children}</div>
     </div>
   );
 };
