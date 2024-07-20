@@ -18,7 +18,7 @@ const ChatBotPage = async () => {
           <MobileNav />
         </div>
       </header>
-      <Chat img={sessionUser.image!} />
+      <Chat image={sessionUser.image!} />
     </section>
   );
 };

@@ -97,6 +97,7 @@ export default function Chat({ image }: ChatProps) {
                         </AvatarFallback>
                       </Avatar>
                       <div className="mt-1.5 w-full">
+                        <p className="font-semibold">🤖</p>
                         <div className="mt-2 text-sm">{m.content}</div>
                       </div>
                     </div>
