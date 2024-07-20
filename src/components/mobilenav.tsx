@@ -1,7 +1,9 @@
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -11,6 +13,7 @@ import { Menu } from 'lucide-react';
 import { getSessionUser } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
+import SignOutBtn from './auth/signout-btn';
 
 const MobileNav = async () => {
   const sessionUser = await getSessionUser();
@@ -22,7 +25,7 @@ const MobileNav = async () => {
           <Menu />
         </Button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="flex flex-col justify-between h-full">
         <SheetHeader>
           <SheetTitle>
             <div className="flex items-center gap-3">
@@ -38,17 +41,24 @@ const MobileNav = async () => {
             </div>
           </SheetTitle>
         </SheetHeader>
-        <ul className="space-y-4 mt-12">
-          <li className="cursor-pointer">
-            <Link href="/dashboard">〰️ Dashboard</Link>
-          </li>
-          <li className="cursor-pointer">
-            <Link href="/forum">🔗 Forum</Link>
-          </li>
-          <li className="cursor-pointer">
-            <Link href="/chat">🤖 Chat</Link>
-          </li>
-        </ul>
+        <div className="flex-1 mt-20">
+          <ul className="flex flex-col gap-4">
+            <li className="cursor-pointer">
+              <Link href="/dashboard">〰️ Dashboard</Link>
+            </li>
+            <li className="cursor-pointer">
+              <Link href="/forum">🔗 Forum</Link>
+            </li>
+            <li className="cursor-pointer">
+              <Link href="/chat">🤖 Chat</Link>
+            </li>
+          </ul>
+        </div>
+        <SheetFooter>
+          <SheetClose asChild>
+            <SignOutBtn />
+          </SheetClose>
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   );

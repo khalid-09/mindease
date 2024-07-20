@@ -17,6 +17,9 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.9.0
         version: 3.9.0(react-hook-form@7.52.1(react@18.3.1))
+      '@mistralai/mistralai':
+        specifier: ^0.5.0
+        version: 0.5.0
       '@prisma/client':
         specifier: ^5.17.0
         version: 5.17.0(prisma@5.17.0)
@@ -570,6 +573,9 @@ packages:
   '@mapbox/node-pre-gyp@1.0.9':
     resolution: {integrity: sha512-aDF3S3rK9Q2gey/WAttUlISduDItz5BU3306M9Eyv6/oS40aMprnopshtlKTykxRNIBEZuRMaZAnbrQ4QtKGyw==}
     hasBin: true
+
+  '@mistralai/mistralai@0.5.0':
+    resolution: {integrity: sha512-56xfoC/0CiT0RFHrRNoJYSKCNc922EyHzEPJYY6ttalQ5KZdrNVgXeOetIGX0lDx7IjbxAJrrae2MQgUIlL9+g==}
 
   '@mongodb-js/saslprep@1.1.7':
     resolution: {integrity: sha512-dCHW/oEX0KJ4NjDULBo3JiOaK5+6axtpBbS+ao2ZInoAL9/YRQLhXzSNAFz7hP4nzLkIqsfYAK/PDE3+XHny0Q==}
@@ -4237,6 +4243,12 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+
+  '@mistralai/mistralai@0.5.0':
+    dependencies:
+      node-fetch: 2.6.13
+    transitivePeerDependencies:
+      - encoding
 
   '@mongodb-js/saslprep@1.1.7':
     dependencies:
