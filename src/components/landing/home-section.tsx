@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react';
 
 const HomeSection = () => {
   return (
-    <div className="p-10">
+    <div className="p-10 ">
       <h1 className="md:mt-[4.4rem] translate-x-20 md:translate-x-0 mt-4 text-center uppercase w-full text-2xl md:text-6xl font-semibold">
         Mental Health Support: AI
       </h1>

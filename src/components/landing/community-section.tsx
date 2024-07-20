@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react';
 
 const CommunitySection = () => {
   return (
-    <div className="relative h-svh -translate-y-52">
+    <div className=" h-svh sticky top-0 -translate-y-52">
       <Image
         src={secondBg}
         alt="Main Hero Image"
