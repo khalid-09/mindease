@@ -3,8 +3,6 @@ import MobileNav from '@/components/mobilenav';
 import { getSessionUser } from '@/lib/utils';
 import { redirect } from 'next/navigation';
 
-export const runtime = 'edge';
-
 const ChatBotPage = async () => {
   const sessionUser = await getSessionUser();
   if (!sessionUser) redirect('/login');
@@ -20,7 +18,7 @@ const ChatBotPage = async () => {
           <MobileNav />
         </div>
       </header>
-      <Chat />
+      <Chat img={sessionUser.image!} />
     </section>
   );
 };
