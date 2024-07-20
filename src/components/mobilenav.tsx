@@ -2,7 +2,6 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
@@ -13,7 +12,7 @@ import { Menu } from 'lucide-react';
 import { getSessionUser } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import SignOutBtn from './auth/signout-btn';
+import SignOutBtnForm from './auth/sign-out-btn-form';
 
 const MobileNav = async () => {
   const sessionUser = await getSessionUser();
@@ -56,7 +55,7 @@ const MobileNav = async () => {
         </div>
         <SheetFooter>
           <SheetClose asChild>
-            <SignOutBtn />
+            <SignOutBtnForm />
           </SheetClose>
         </SheetFooter>
       </SheetContent>
