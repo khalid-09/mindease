@@ -1,5 +1,4 @@
 import { signOut } from '@/auth';
-import { Button } from '../ui/button';
 import SignOutBtn from './signout-btn';
 
 const SignOutBtnForm = () => {
@@ -9,7 +8,6 @@ const SignOutBtnForm = () => {
         'use server';
         await signOut();
       }}
-      className="md:block hidden"
     >
       <SignOutBtn />
     </form>

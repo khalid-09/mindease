@@ -1,8 +1,6 @@
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
@@ -13,8 +11,8 @@ import { Menu } from 'lucide-react';
 import { getSessionUser } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import SignOutBtn from './auth/signout-btn';
 import { ModeToggle } from './toggle-theme';
+import SignOutBtnForm from './auth/sign-out-btn-form';
 
 const MobileNav = async () => {
   const sessionUser = await getSessionUser();
@@ -56,12 +54,10 @@ const MobileNav = async () => {
           </ul>
         </div>
         <SheetFooter className="flex justify-end">
-          <SheetClose asChild>
-            <div className="flex gap-2">
-              <SignOutBtn />
-              <ModeToggle />
-            </div>
-          </SheetClose>
+          <div className="flex gap-2">
+            <SignOutBtnForm />
+            <ModeToggle />
+          </div>
         </SheetFooter>
       </SheetContent>
     </Sheet>
