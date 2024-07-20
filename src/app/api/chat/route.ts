@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import MistralClient from '@mistralai/mistralai';
 
-// Initialize the Mistral client
 const client = new MistralClient(process.env.MISTRAL_API_KEY);
 
 export async function POST(request: Request) {

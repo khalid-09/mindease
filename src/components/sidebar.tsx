@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { BotMessageSquare, HomeIcon, MessageCircleMore } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { ModeToggle } from './toggle-theme';
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -37,6 +38,7 @@ const Sidebar = () => {
         <BotMessageSquare />
         <p className="text-lg">Chatbot</p>
       </Link>
+      <ModeToggle />
     </aside>
   );
 };
